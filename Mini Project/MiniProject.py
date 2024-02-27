@@ -119,10 +119,10 @@ while cap.isOpened():  # 비디오가 열려 있는 동안 반복
 
                 if winner is not None:
                     cv2.putText(img, text='Winner', org=(int(img.shape[1] / 4), 70), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=3, color=(0, 255, 0), thickness=3)  # org=(int(img.shape[1] / 4), 70)는 이미지 내에 텍스트를 표시할 위치를 나타냄, org는 텍스트의 시작점을 나타내는 변수, (int(img.shape[1] / 4), 70)은 (x, y) 형태의 튜플
-                    if time.time() > score_pause_time:
-	                    player1_score += 1 if winner == 1 and time.time() > score_pause_time else 0
-        	            player2_score += 1 if winner == 2 and time.time() > score_pause_time else 0
-        	            score_pause_time = time.time() + 2  # Pause the score for 1 second
+                    if time.time() > score_pause_time:  # 현재 시간이 score_pause_time보다 클 경우에만 아래의 코드를 실행, 이 조건문은 일정 시간 동안 점수를 일시 정지하는 기능을 구현하기 위해 사용
+	                    player1_score += 1 if winner == 1 and time.time() > score_pause_time else 0  # 플레이어 1의 점수를 업데이트/winner == 1이 참이고 현재 시간이 score_pause_time보다 클 경우에만 플레이어 1의 점수를 1 증가/점수를 일시 정지 중인 경우 아무 작업도 수행하지 않음
+        	            player2_score += 1 if winner == 2 and time.time() > score_pause_time else 0  # 플레이어 2의 점수를 업데이트/winner == 2이 참이고 현재 시간이 score_pause_time보다 클 경우에만 플레이어 1의 점수를 1 증가/점수를 일시 정지 중인 경우 아무 작업도 수행하지 않음
+        	            score_pause_time = time.time() + 2  # 현재 시간에서 2초를 더하여 score_pause_time을 업데이트/점수를 2초 동안 일시 정지 이후에는 다시 점수가 업데이트됨
                     
                     # Increment player score and reset if 10 points are reached
                     if player1_score == 10 or player2_score == 10:
@@ -143,4 +143,3 @@ while cap.isOpened():  # 비디오가 열려 있는 동안 반복
 
 cap.release()  # 비디오 캡처를 해제
 cv2.destroyAllWindows()  # 모든 창을 닫기
-
