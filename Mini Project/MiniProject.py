@@ -118,7 +118,7 @@ while cap.isOpened():  # 비디오가 열려 있는 동안 반복
                     elif rps_result[1]['rps'] == 'scissors': text = 'Replay'
 
                 if winner is not None:
-                    cv2.putText(img, text='Winner', org=(int(img.shape[1] / 4), 70), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=3, color=(0, 255, 0), thickness=3)
+                    cv2.putText(img, text='Winner', org=(int(img.shape[1] / 4), 70), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=3, color=(0, 255, 0), thickness=3)  # org=(int(img.shape[1] / 4), 70)는 이미지 내에 텍스트를 표시할 위치를 나타냄, org는 텍스트의 시작점을 나타내는 변수, (int(img.shape[1] / 4), 70)은 (x, y) 형태의 튜플
                     if time.time() > score_pause_time:
 	                    player1_score += 1 if winner == 1 and time.time() > score_pause_time else 0
         	            player2_score += 1 if winner == 2 and time.time() > score_pause_time else 0
