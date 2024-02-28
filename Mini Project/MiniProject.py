@@ -22,7 +22,7 @@ face_detection = mp_face_detection.FaceDetection(  # 'mp_face_detection.FaceDete
     min_detection_confidence=0.5)                  # 'min_detection_confidence' 매개변수는 얼굴을 감지하는 데 필요한 최소 신뢰도 임계값을 설정/감지된 얼굴에 대한 신뢰도<임계값(해당 얼굴 무시)
 
 # Gesture recognition model
-file = np.genfromtxt('data/gesture_train.csv', delimiter=',')  # CSV 파일에서 제스처 학습 데이터를 가져옴
+file = np.genfromtxt('data/gesture_train.csv', delimiter=',')  # NumPy의 'genfromtxt()'함수를 사용하여 CSV 파일에서 제스처 학습 데이터를 가져옴
 angle = file[:, :-1].astype(np.float32)  # 각도 데이터 가져옴
 label = file[:, -1].astype(np.float32)  # 라벨 데이터 가져옴
 knn = cv2.ml.KNearest_create()  # KNN분류기 생성
