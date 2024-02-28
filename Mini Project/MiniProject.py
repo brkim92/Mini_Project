@@ -31,7 +31,7 @@ knn.train(angle, cv2.ml.ROW_SAMPLE, label)  # KNN분류기를 훈련
 # 플레이어 1과 플레이어 2의 경계 상자를 나타내는 변수를 초기화/None은 경계 상자가 아직 지정되지 않았음을 나타냄
 player1_bbox = None
 player2_bbox = None
-# 플레이어 1과 플레이어 2의 점수를 나타내는 변수를 초기화/초기값=0
+# 플레이어 1과 플레이어 2의 점수를 나타내는 변수를 초기화(초기값=0)
 player1_score = 0
 player2_score = 0
 score_pause_time = 0  # 점수를 일시적으로 멈추는 데 사용되는 변수를 초기화(일시적인 중복 점수를 방지하기 위해 사용)
@@ -118,7 +118,7 @@ def detect_hands(img):
     if result.multi_hand_landmarks is not None:  # 손이 감지된 경우에 아래의 코드를 실행
         rps_result = []  # 손의 제스처를 저장할 빈 리스트를 초기화
 
-        for i, res in enumerate(result.multi_hand_landmarks):  # 감지된 각 손에 대해 반복하면서 손의 제스처를 분석
+        for i, res in enumerate(result.multi_hand_landmarks):  # 감지된 각 손에 대해 반복하면서 손의 제스처를 분석('res'변수는 각 손의 랜드마크 정보 할당, 'i'변수는 해당 손의 인덱스 할당됨)
             joint = np.zeros((21, 3))
             for j, lm in enumerate(res.landmark):  # enumerate() 함수는 순회 가능한(iterable) 객체(리스트, *튜플, 문자열 등)를 입력으로 받아 인덱스와 값을 순회 가능한 객체로 반환
                 joint[j] = [lm.x, lm.y, lm.z]  # 손의 각 관절 좌표를 저장
@@ -126,7 +126,7 @@ def detect_hands(img):
             # 각 관절 사이의 각도를 계산
             v1 = joint[[0,1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,0,17,18,19],:]  # Parent joint
             v2 = joint[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],:]  # Child joint
-            v = v2 - v1  # [20,3]
+            v = v2 - v1  # [20,3] [손의 랜드마크 개수, 각 관절의 (x, y, z)좌표]
             # Normalize v
             v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]
 
