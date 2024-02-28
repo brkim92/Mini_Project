@@ -45,7 +45,6 @@ def save_player_images(player1_face, player2_face, cap):  # 플레이어 1과 �
     cap.release()
     cv2.destroyAllWindows()
 
-
 def detect_players(img, cap):
     global player1_score, player2_score, score_pause_time, player1_bbox, player2_bbox  # 전역 변수임을 명시
 
@@ -77,8 +76,6 @@ def detect_players(img, cap):
                 save_player_images(player1_face, player2_face, cap)  # 잘라낸 플레이어 1과 플레이어 2의 얼굴 이미지를 저장하는 함수를 호출
 
     return img  # 처리된 이미지를 반환
-
-
     
 def start_hand_detection():
     cap = cv2.VideoCapture(0)  # 비디오 캡처 장치 열기
