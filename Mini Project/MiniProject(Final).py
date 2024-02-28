@@ -119,7 +119,7 @@ def detect_hands(img):
         rps_result = []  # 손의 제스처를 저장할 빈 리스트를 초기화
 
         for i, res in enumerate(result.multi_hand_landmarks):  # 감지된 각 손에 대해 반복하면서 손의 제스처를 분석('res'변수는 각 손의 랜드마크 정보 할당, 'i'변수는 해당 손의 인덱스 할당됨)
-            joint = np.zeros((21, 3))
+            joint = np.zeros((21, 3))  # 손의 각 관절 좌표를 저장할 배열을 생성
             for j, lm in enumerate(res.landmark):  # enumerate() 함수는 순회 가능한(iterable) 객체(리스트, *튜플, 문자열 등)를 입력으로 받아 인덱스와 값을 순회 가능한 객체로 반환
                 joint[j] = [lm.x, lm.y, lm.z]  # 손의 각 관절 좌표를 저장
 
