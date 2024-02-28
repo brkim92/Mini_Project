@@ -6,7 +6,7 @@ import tkinter as tk            # Python에서 GUI (Graphical User Interface)를
 from tkinter import messagebox  # 사용자에게 메시지를 표시하는 데 사용/다양한 유형의 메시지 상자를 표시 가능
 
 max_num_hands = 2               # 최대 손 감지 수를 2로 설정
-THRESHOLD = 0.2                 # 20%, 값이 클수록 손이 카메라와 가까워야 인식함
+THRESHOLD = 0.2  # 20%, 임계값이 낮을수록 손이 카메라와 가까워야만 제스처가 인식되고, 임계값이 높을수록 손이 카메라와 더 멀어져도 인식(임계값을 조정하여 원하는 거리에서 손의 제스처를 정확하게 인식할 수 있도록 할 수 있음)
 rps_gesture = {0: 'rock', 5: 'paper', 9: 'scissors'}  # 가위바위보의 손 모양을 숫자와 문자열의 매핑으로 나타내는 딕셔너리를 생성
 gesture = {0: 'fist', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'rock', 8: 'spiderman', 9: 'yeah', 10: 'ok',}
 
@@ -227,18 +227,19 @@ def gesture(img):  # 이미지에서 손의 제스처를 분석하는 함수를 
             # 제스처가 주먹이거나 여섯이면 아래의 코드 블록을 실행
             if idx == 0 or idx == 6:
                 # 주먹의 위치에 따라 방향을 결정하고, 이를 텍스트로 저장
-                thumb_end = res.landmark[4]
-                fist_end = res.landmark[17]
+                thumb_end = res.landmark[4]  # 주먹을 쥐었을 때의 엄지 손가락 끝의 위치를 나타냄
+                fist_end = res.landmark[17]  # 주먹을 쥐었을 때의 손의 끝 부분(쥔 부분)의 위치를 나타냄
 
                 text = None
-
-                if thumb_end.x - fist_end.x > THRESHOLD:
+                
+                # 두 랜드마크 사이의 상대적인 위치를 비교하여 주먹의 방향을 결정합니다. 여기서 THRESHOLD 값은 주먹의 위치를 결정할 때 사용되는 임계값으로, 손의 카메라와의 거리에 따라 방향이 결정
+                if thumb_end.x - fist_end.x > THRESHOLD:  # 'thumb_end.x - fist_end.x' 값 > THRESHOLD(주먹이 오른쪽으로 이동했다고 판단하여 텍스트를 'RIGHT'로 설정)
                     text = 'RIGHT'
-                elif fist_end.x - thumb_end.x > THRESHOLD:
+                elif fist_end.x - thumb_end.x > THRESHOLD:  # 'fist_end.x - thumb_end.x' 값 > THRESHOLD(주먹이 왼쪽으로 이동했다고 판단하여 텍스트를 'LEFT'로 설정)
                     text = 'LEFT'
-                elif thumb_end.y - fist_end.y > THRESHOLD:
+                elif thumb_end.y - fist_end.y > THRESHOLD:  # 'thumb_end.y - fist_end.y' 값 > THRESHOLD(주먹이 아래쪽으로 이동했다고 판단하여 텍스트를 'DOWN'로 설정)
                     text = 'DOWN'
-                elif fist_end.y - thumb_end.y > THRESHOLD:
+                elif fist_end.y - thumb_end.y > THRESHOLD:  # 'fist_end.y - thumb_end.y' 값 > THRESHOLD(주먹이 위쪽으로 이동했다고 판단하여 텍스트를 'UP'로 설정)
                     text = 'UP'
 
                 if text is not None:  # 결정된 방향을 이미지에 텍스트로 표시
@@ -311,4 +312,3 @@ def create_start_window():  # 시작 창을 생성하는 함수를 정의
 
 # 시작 창 열기(사용자가 버튼을 누르면 start_game 함수가 호출되어 각 모드에 따른 게임이 시작)
 create_start_window()
-
