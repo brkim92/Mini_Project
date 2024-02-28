@@ -25,8 +25,6 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 640)  # 가로 해상도를 640으로 설정
 cap.set(4, 480)  # 세로 해상도를 480으로 설정
 
-mode = 0  # 초기 모드 선택 (0: 기본, 1: Gesture, 2: Rock, Scissors, Paper)
-
 player1_score = 0
 player2_score = 0
 detect_hands = True
