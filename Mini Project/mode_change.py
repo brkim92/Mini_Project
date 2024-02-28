@@ -216,7 +216,7 @@ while cap.isOpened():
         break
     elif key == ord('a'):  # 'a' 키를 눌렀을 때 모드를 1로 변경
         mode = 1
-    elif key == ord('b'):  # 'b' 키를 눌렀을 때 모드를 1로 변경
+    elif key == ord('b'):  # 'b' 키를 눌렀을 때 모드를 2로 변경
         mode = 2
 
 cap.release()
